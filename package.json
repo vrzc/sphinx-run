@@ -1,0 +1,31 @@
+{
+  "name": "sphinx.djs",
+  "version": "1.0.2",
+  "description": "This package was made to annoy users in discord, Made it because people kept asking for it.",
+  "main": "inedx.js",
+  "bin": {
+    "sphinx-bc": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioSphinx/sphinx-bc.git"
+  },
+  "keywords": [
+    "sphinx",
+    "discord",
+    "annoying"
+  ],
+  "bugs": {
+    "url": "https://github.com/ioSphinx/sphinx-bc/issues"
+  },
+  "homepage": "https://github.com/ioSphinx/sphinx-bc#readme",
+  "author": "Sphinx",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@discordjs/builders": "^1.1.0",
+    "axios": "^0.27.2"
+  }
+}
