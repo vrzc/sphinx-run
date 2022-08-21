@@ -52,3 +52,4 @@ client.login("YourToken");
 
 # Thanks
 - Special thanks to **Skyfall#5367** for editing the tutorial video.
+<img src="https://discord.c99.nl/widget/theme-3/1005949759325999104.png">
