@@ -1,1 +1,1 @@
-Contribute by sending me a dm at Sohinx#8609
+Contribute by sending me a dm at Sphinx#8609
