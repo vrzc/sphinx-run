@@ -4,8 +4,8 @@ const events = require("events");
 const emitter = new events.EventEmitter();
 class botAccount {
     constructor(client, discord) {
-        this.Discord = discord;
         this.client = client;
+        this.Discord = discord;
     }
     async broadcast({ownerId = [], prefix = "!", embedReply = "Made by Sphinx.", mention = false, type = "all" | "online"}) {
         if(!ownerId) {
