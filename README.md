@@ -46,6 +46,14 @@ new userAccount(client, Discord).leveling({
 });
 client.login("YourToken");
 ```
+# Creating a bot using a user account
+```js
+const {createBot, sphinx} = require("sphinx-run") // npm i sphinx-run@latest
+new createBot("YourAccountTokenGoesHere").create("BotName");
+sphinx.on("GetBotToken", token => {
+    console.log(token)
+});
+```
 
 # Contacts 
 - For Support Contact : **Sphinx#8609** || **sphinx@oldsphinx.ml**

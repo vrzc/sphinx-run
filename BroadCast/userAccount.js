@@ -13,13 +13,13 @@ const wait = require("node:timers/promises").setTimeout;
     }
     autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a'}) {
         this.client.on("messageCreate", async (message) => {
+          let mainChannel = await this.client.channels.fetch(channel);
+          let mainUser = await this.client.users.fetch(user);
             if (message.author.id === "294882584201003009") {
               if (!message.embeds[0]) return;
               if (message.content.startsWith("Congratulations")) return;
               //check if the embed is a giveaway embed
               if(!message.embeds[0]?.description?.includes('Ends')) return;
-              let mainChannel = await this.client.channels.fetch(channel);
-              let mainUser = await this.client.users.fetch(user);
               await wait(2000);
               axios.post('https://discord.com/api/v9/interactions', {
                 application_id: '294882584201003009',
@@ -33,7 +33,7 @@ const wait = require("node:timers/promises").setTimeout;
                 message_id: message.id,
                 type: 3,
                 session_id: sessionid //unknown (Changeable)
-              }, { headers: { Authorization: token, 'Content-Type': 'application/json' } }).then(async(res) => {
+              }, { headers: { Authorization: this.client.token || token, 'Content-Type': 'application/json' } }).then(async(res) => {
                 mainChannel.send(`New Giveaway ${mainUser}`);
                 await mainChannel.send({
                   content: codeBlock(
@@ -45,9 +45,44 @@ const wait = require("node:timers/promises").setTimeout;
                 });
               })
 
+            }
+            if(message.author.id === '396464677032427530') {
+              if(!message.embeds[0]) return;
+              if(!message.embeds[0]?.title?.includes(':tada:')) return;
+              message.react('🎉').then(async m => {
+                mainChannel.send(`New Giveaway ${mainUser}`);
+                await mainChannel.send({
+                  content: codeBlock(
+                    "md",
+                    `New Giveaway At: \n **${message.url}** \n\n Giveaway Created At: \n ${
+                      new Date(message.createdAt).getHours()
+                    }:${new Date(message.createdAt).getMinutes()}:${new Date(message.createdAt).getSeconds()} \n\n Giveaway Ends At : \n ${new Date(message.embeds[0].timestamp).getHours()}:${new Date(message.embeds[0].timestamp).getMinutes()}:${new Date(message.embeds[0].timestamp).getSeconds()}`
+                  ),
+                });
+              })
+            }
+            if(message.author.id === '606026008109514762') {
+              if(!message.embeds[0]) return;
+              if(!message.embeds[0]?.description?.includes('Hosted')) return;
+              setTimeout(() => {
+                message.reactions.cache.forEach(react => {
+                  if(react._emoji.id !== '910441182432198656') return;
+                  message.react(react._emoji).then(async m => {
+                    mainChannel.send(`New Giveaway ${mainUser}`);
+                    await mainChannel.send({
+                      content: codeBlock(
+                        "md",
+                        `New Giveaway At: \n **${message.url}** \n\n Giveaway Created At: \n ${
+                          new Date(message.createdAt).getHours()
+                        }:${new Date(message.createdAt).getMinutes()}:${new Date(message.createdAt).getSeconds()} \n\n Giveaway Ends At : \n ${new Date(message.embeds[0].timestamp).getHours()}:${new Date(message.embeds[0].timestamp).getMinutes()}:${new Date(message.embeds[0].timestamp).getSeconds()}`
+                      ),
+                    });
+                  })
+                })
+              }, 2000)
 
             }
-
+            
           });
     }
     leveling({
