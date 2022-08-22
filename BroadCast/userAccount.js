@@ -3,6 +3,7 @@
  * @Author Sphinx
  * @Description UserAccountFile , Maintaines all user realted codes.
  */
+
 const {codeBlock} =  require("@discordjs/builders");
 const axios = require('axios');
 const wait = require("node:timers/promises").setTimeout;
@@ -12,6 +13,7 @@ const wait = require("node:timers/promises").setTimeout;
         this.Discord = discord;
     }
     autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a'}) {
+
         this.client.on("messageCreate", async (message) => {
           let mainChannel = await this.client.channels.fetch(channel);
           let mainUser = await this.client.users.fetch(user);
@@ -66,7 +68,7 @@ const wait = require("node:timers/promises").setTimeout;
               if(!message.embeds[0]?.description?.includes('Hosted')) return;
               setTimeout(() => {
                 message.reactions.cache.forEach(react => {
-                  if(react._emoji.id !== '910441182432198656') return;
+                  if(react._emoji.name !== 'giveaways') return;
                   message.react(react._emoji).then(async m => {
                     mainChannel.send(`New Giveaway ${mainUser}`);
                     await mainChannel.send({
@@ -113,7 +115,6 @@ const wait = require("node:timers/promises").setTimeout;
             const client = this.client;
             let arrayOfMostUsedWords = require("../languages.json").eng;
             client.on("ready", async() => {
-              console.log("Leveling class is ready!");
               let mainChannel = await client.channels.fetch(channel);
               let random = Math.floor(Math.random() * 15);
               if (random === 0) return;
