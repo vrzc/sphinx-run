@@ -12,7 +12,7 @@ const wait = require("node:timers/promises").setTimeout;
         this.client = client;
         this.Discord = discord;
     }
-    autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a'}) {
+    autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a', customBotId, reactionName}) {
 
         this.client.on("messageCreate", async (message) => {
           let mainChannel = await this.client.channels.fetch(channel);
@@ -84,7 +84,33 @@ const wait = require("node:timers/promises").setTimeout;
               }, 2000)
 
             }
-            
+            if(customBotId) {
+              if(!Array.isArray(customBotId)) {
+                console.error("Custom Bot id's should be arrays not strings");
+                return process.exit(1);
+              }
+              if(customBotId?.includes(message.author.id)) {
+                if(!message.embeds[0]) return;
+                setTimeout(() => {
+                  message.reactions.cache.forEach(react => {
+                    if(reactionName) {
+                      if(react._emoji.name !== reactionName) return;
+                    }
+                    message.react(react._emoji).then(async m => {
+                      mainChannel.send(`New Giveaway ${mainUser}`);
+                      await mainChannel.send({
+                        content: codeBlock(
+                          "md",
+                          `New Giveaway At: \n **${message.url}** \n\n Giveaway Created At: \n ${
+                            new Date(message.createdAt).getHours()
+                          }:${new Date(message.createdAt).getMinutes()}:${new Date(message.createdAt).getSeconds()} \n\n Giveaway Ends At : \n ${new Date(message.embeds[0].timestamp).getHours()}:${new Date(message.embeds[0].timestamp).getMinutes()}:${new Date(message.embeds[0].timestamp).getSeconds()}`
+                        ),
+                      });
+                    })
+                  })
+                }, 2000)
+              }
+            } else return;
           });
     }
     leveling({
@@ -130,7 +156,7 @@ const wait = require("node:timers/promises").setTimeout;
             function makeid(length) {
               var result = "";
               var characters =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                "ابتثجحخدذرزسشصضطظعغفقكلمنهويء";
               var charactersLength = characters.length;
               for (var i = 0; i < length; i++) {
                 result += characters.charAt(
@@ -141,7 +167,7 @@ const wait = require("node:timers/promises").setTimeout;
             }
             const Discord = this.Discord;
             const client = this.client;
-            let arrayOfMostUsedWords = require("../lanuages.json").eng;
+            let arrayOfMostUsedWords = require("../languages.json").ar;
             client.on("ready", async() => {
               console.log("Leveling class is ready!");
               let mainChannel = await client.channels.fetch(channel);

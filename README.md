@@ -28,8 +28,7 @@ const {userAccount} = require("sphinx-run");
 new userAccount(client, Discord).autoReaction({
     channel: 'AnyChannelID',
     user: 'AnyUserID',
-    token: "YourAccountToken", //Will be fixed soon btw.
-    sessionid: "SessionIDGoesHere", //optional 
+    //customBotId: ['SomeBotIDS']
 });
 client.login("YourToken");
 ```
