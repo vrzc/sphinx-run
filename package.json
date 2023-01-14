@@ -1,17 +1,18 @@
 {
   "name": "sphinx-run",
-  "version": "1.0.8",
+  "version": "0.0.0-development",
   "description": "This package was made to annoy users in discord, Made it because people kept asking for it.",
   "main": "inedx.js",
   "bin": {
-    "sphinx-bc": "bin/cli.js"
+    "sphinx-run": "bin/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release --branches"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ioSphinx/sphinx-run.git"
+    "url": "https://github.com/ioSphinx/sphinx-run.git"
   },
   "keywords": [
     "sphinx",
@@ -27,5 +28,8 @@
   "dependencies": {
     "@discordjs/builders": "^1.1.0",
     "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "semantic-release": "^20.0.2"
   }
 }
