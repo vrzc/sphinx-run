@@ -1,6 +1,6 @@
 {
   "name": "sphinx-run",
-  "version": "0.0.0-development",
+  "version": "2.0.21",
   "description": "This package was made to annoy users in discord, Made it because people kept asking for it.",
   "main": "inedx.js",
   "bin": {

@@ -12,17 +12,23 @@ const wait = require("node:timers/promises").setTimeout;
         this.client = client;
         this.Discord = discord;
     }
-    autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a', customBotId, reactionName}) {
-
+    #ads() {
+      console.log("Thank you for using sphinx-run package, All credits go to Sphinxᵖˡ#6969 for creating this awesome package, support server link is : https://discord.gg/rAgTGQkbG9")
+    }
+    autoReaction({channel, user, token, sessionid = '636e16489c6fd773fbb37bdb212ecf3a', customBotId, reactionName, timeout = 5000, blacklistedwords = []}) {
+      this.#ads()  
+      if(!Array.isArray(blacklistedwords)) return;
         this.client.on("messageCreate", async (message) => {
           let mainChannel = await this.client.channels.fetch(channel);
           let mainUser = await this.client.users.fetch(user);
             if (message.author.id === "294882584201003009") {
               if (!message.embeds[0]) return;
+
               if (message.content.startsWith("Congratulations")) return;
               //check if the embed is a giveaway embed
               if(!message.embeds[0]?.description?.includes('Ends')) return;
-              await wait(2000);
+              if(blacklistedwords.includes(message.embeds[0]?.title)) return;
+              await wait(timeout);
               axios.post('https://discord.com/api/v9/interactions', {
                 application_id: '294882584201003009',
                 channel_id: message.channel.id,
@@ -51,6 +57,9 @@ const wait = require("node:timers/promises").setTimeout;
             if(message.author.id === '396464677032427530') {
               if(!message.embeds[0]) return;
               if(!message.embeds[0]?.title?.includes(':tada:')) return;
+              if(blacklistedwords.includes(message.embeds[0]?.title)) return;
+
+              await wait(timeout)
               message.react('🎉').then(async m => {
                 mainChannel.send(`New Giveaway ${mainUser}`);
                 await mainChannel.send({
@@ -66,9 +75,12 @@ const wait = require("node:timers/promises").setTimeout;
             if(message.author.id === '606026008109514762') {
               if(!message.embeds[0]) return;
               if(!message.embeds[0]?.description?.includes('Hosted')) return;
+              if(blacklistedwords.includes(message.embeds[0]?.title)) return;
+
               setTimeout(() => {
-                message.reactions.cache.forEach(react => {
+                message.reactions.cache.forEach(async react => {
                   if(react._emoji.name !== 'giveaways') return;
+                  await wait(timeout)
                   message.react(react._emoji).then(async m => {
                     mainChannel.send(`New Giveaway ${mainUser}`);
                     await mainChannel.send({
@@ -90,12 +102,14 @@ const wait = require("node:timers/promises").setTimeout;
                 return process.exit(1);
               }
               if(customBotId?.includes(message.author.id)) {
+                if(blacklistedwords.includes(message.embeds[0]?.title)) return;
                 if(!message.embeds[0]) return;
                 setTimeout(() => {
-                  message.reactions.cache.forEach(react => {
+                  message.reactions.cache.forEach(async react => {
                     if(reactionName) {
                       if(react._emoji.name !== reactionName) return;
                     }
+                    await wait(timeout)
                     message.react(react._emoji).then(async m => {
                       mainChannel.send(`New Giveaway ${mainUser}`);
                       await mainChannel.send({
@@ -119,6 +133,8 @@ const wait = require("node:timers/promises").setTimeout;
         time = 15000,
         type = 'eng'
     }) {
+      this.#ads()  
+
         if (!channel) {
             console.error(new Error("No channel id were specified!"));
             return process.exit(1);
