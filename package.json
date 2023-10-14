@@ -27,7 +27,7 @@
   "author": "Sphinx",
   "license": "Apache-2.0",
   "dependencies": {
-    "@discordjs/builders": "^1.1.0",
+    "@discordjs/builders": "^1.6.5",
     "axios": "^0.27.2"
   },
   "devDependencies": {
