@@ -28,7 +28,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@discordjs/builders": "^1.1.0",
-    "axios": "^0.27.2"
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
